@@ -86,7 +86,7 @@ Tidak ada
 ## Soal 2
 Untuk mempermudah mendapatkan informasi mengenai misi dari Handler, bantulah Loid membuat website utama dengan akses wise.yyy.com dengan alias www.wise.yyy.com pada folder wise
 ### Cara Pengerjaan
-1. Pertama tama kita download terlebih dahulu bind9 di WISE dengan command
+1. Pertama tama kita install terlebih dahulu bind9 di WISE dengan command
 ```
 apt-get update
 apt-get install bind9 -y
