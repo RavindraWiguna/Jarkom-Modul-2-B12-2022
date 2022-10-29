@@ -344,23 +344,21 @@ apt-get install git -y
 
 Untuk mendownload file, lakukan `git clone https://github.com/Tioardhana/modul2source-jarkom.git` (repository tambahan khusus file zip yang dibutuhkan) dan unzip file nya dengan command `unzip -o /root/modul2source-jarkom/\*.zip -d /root/modul2source-jarkom`.
 
-![image](https://github.com/zunia25/praktikum-modul-2-/blob/main/ls_dokumen.png)
-
-Copy file `default-wise-1.conf` ke `wise.b10.com.conf` dengan perintah `cp /root/default-wise-1.conf /etc/apache2/sites-available/wise.b10.com.conf`. 
+Copy file `default.conf` ke `wise.b12.com.conf` dengan perintah `cp soal8/default.conf /etc/apache2/sites-available/wise.b12.com.conf`. 
   
-Kemudian aktifkan website dengan `a2ensite wise.b12.com`, lalu buat direktori `var/www/wise.b12.com` dengan perintah `mkdir /var/www/wise.b12.com` dan copy file dengan perintah `cp /root/wise.b12.com/index.php /var/www/wise.b12.com`.
+Kemudian aktifkan website dengan `a2ensite wise.b12.com`, lalu buat direktori `var/www/wise.b12.com` dengan perintah `mkdir /var/www/wise.b12.com` dan copy file dengan perintah `cp soal8/wise.b12.com/index.php /var/www/wise.b12.com`.
   
 Restart apache dengan `service apache2 restart`.
 
 Lakukan tes pada node SSS dan Garden dengan `lynx http://www.wise.b12.com` atau `lynx http://www.wise.b12.com/index.php` maka akan mendapatkan tampilan seperti berikut 
 
-![image](https://user-images.githubusercontent.com/67154280/198006471-78b62a5d-9d74-4bfe-9980-223e57522fac.png)
+![image](https://github.com/RavindraWiguna/Jarkom-Modul-2-B12-2022/blob/main/images/no%208/picture1.png)
 
 ### 9
 > Setelah itu, Loid juga membutuhkan agar url **www.wise.yyy.com/index.php/home** dapat menjadi menjadi **www.wise.yyy.com/home**.
 
 ### Penyelesaian
-Pada node Eden, copy semua file di folder wise yang sudah diunzip dengan command `cp -r /root/modul2source-jarkom/wise/. /var/www/wise.b12.com`, selanjutnya konfigurasi file `wise.b12.com.conf` dengan `cp /root/default-wise-2.conf /etc/apache2/sites-available/wise.b12.com.conf` dengan isi `default-wise-2.conf` sebagai berikut.
+Pada node Eden, copy semua file di folder wise yang sudah diunzip dengan command `cp -r /root/modul2source-jarkom/wise/. /var/www/wise.b12.com`, selanjutnya konfigurasi file `wise.b12.com.conf` dengan `cp soal9/default.conf /etc/apache2/sites-available/wise.b12.com.conf` dengan isi `default.conf` sebagai berikut.
 
 ```
 <VirtualHost *:80>
@@ -381,7 +379,7 @@ Lakukan restart apache2 dengan `service apache2 restart`
   
 Terakhir lakukan testing pada node Garden dan SSS dengan command `lynx www.wise.b12.com/home`
 
-![image](https://user-images.githubusercontent.com/67154280/198043861-607baa70-0fcc-4a7a-bfcb-c201b913ffe2.png)
+![image](https://github.com/RavindraWiguna/Jarkom-Modul-2-B12-2022/blob/main/images/no%209/picture1.png)
 
 ### 10
 > Setelah itu, pada subdomain **www.eden.wise.yyy.com**, Loid membutuhkan penyimpanan aset yang memiliki DocumentRoot pada /var/www/eden.wise.yyy.com.
@@ -389,7 +387,7 @@ Terakhir lakukan testing pada node Garden dan SSS dengan command `lynx www.wise.
 ### Penyelesaian
 ***Pada node Eden***
 
-Lakukan konfigurasi pada `default-wise-3.conf` dengan 
+Lakukan konfigurasi pada `default.conf` dengan 
 
 ```
 <VirtualHost *:80>
@@ -404,7 +402,7 @@ Lakukan konfigurasi pada `default-wise-3.conf` dengan
 </VirtualHost>
 ```
 
-Kemudian copy file dengan perintah `cp /root/default-wise-3.conf /etc/apache2/sites-available/eden.wise.b12.com.conf`.
+Kemudian copy file dengan perintah `cp soal10/default.conf /etc/apache2/sites-available/eden.wise.b12.com.conf`.
 
 Lalu, aktifkan virtualhost dengan a2ensite, membuat direktori untuk documentroot di `/var/www/eden.wise.b12.com` dan jangan lupa untuk melakukan copy content ke documentroot dengan cara
 
@@ -419,7 +417,7 @@ Restart apache `service apache2 restart`.
 
 Lakukan testing pada node Garden dan SSS dengan command `lynx http://www.eden.wise.b12.com`.
 
-![image](https://user-images.githubusercontent.com/67154280/198212646-415c6aa5-46ce-4714-af97-c01170d5429f.png)
+![image](https://github.com/RavindraWiguna/Jarkom-Modul-2-B12-2022/blob/main/images/no%2010/picture1.png)
 
 ### 11
 > Akan tetapi, pada folder /public, Loid ingin hanya dapat melakukan directory listing saja.
@@ -427,7 +425,7 @@ Lakukan testing pada node Garden dan SSS dengan command `lynx http://www.eden.wi
 ### Penyelesaian
 ***Pada node Eden***
 
-Konfigurasi file `default-wise-4.conf` dengan 
+Konfigurasi file `default.conf` dengan 
 
 ```
 <VirtualHost *:80>
@@ -452,13 +450,13 @@ Konfigurasi file `default-wise-4.conf` dengan
 </VirtualHost>
 ```
 
-dan jangan lupa copy file dengan command `cp /root/default-wise-4.conf /etc/apache2/sites-available/eden.wise.b12.com.conf`.
+dan jangan lupa copy file dengan command `cp soal11/default.conf /etc/apache2/sites-available/eden.wise.b12.com.conf`.
 
 Kemudian restart apache `service apache2 restart`.
 
 Lalu, lakukan testing dengan command `lynx http://www.eden.wise.b12.com/public` maka akan mendapat tampilan seperti berikut.
 
-![image](https://user-images.githubusercontent.com/67154280/198213720-5ffed1dc-75a7-4844-b932-8a68bb3c1039.png)
+![image](https://github.com/RavindraWiguna/Jarkom-Modul-2-B12-2022/blob/main/images/no%2011/picture1.png)
 
 ### 12
 > Tidak hanya itu, Loid juga ingin menyiapkan error file 404.html pada folder /error untuk mengganti error kode pada apache.
@@ -466,7 +464,7 @@ Lalu, lakukan testing dengan command `lynx http://www.eden.wise.b12.com/public` 
 ### Penyelesaian
 ***Pada node Eden***
 
-Konfigurasi file `default-wise-5.conf` dengan menambhkan `ErrorDocument 404 /error/404.html` sehingga terdapat pesan error yang dibuat sendiri seperti berikut
+Konfigurasi file `default.conf` dengan menambhkan `ErrorDocument 404 /error/404.html` sehingga terdapat pesan error yang dibuat sendiri seperti berikut
 
 ```
 <VirtualHost *:80>
@@ -491,13 +489,13 @@ Konfigurasi file `default-wise-5.conf` dengan menambhkan `ErrorDocument 404 /err
   </VirtualHost>
 ```
   
-Copy file dengan command `cp /root/default-wise-5.conf /etc/apache2/sites-available/eden.wise.b12.com.conf`.
+Copy file dengan command `cp soal12/default.conf /etc/apache2/sites-available/eden.wise.b12.com.conf`.
 
 Restart apache `service apache2 restart`.
 
 Lakukan testing pada node Garden dan SSS ketika mengakses url invalid seperti `lynx http://www.eden.wise.b12.com/wrong`, maka akan mendapatkan tampilan berikut.
 
-![image](https://user-images.githubusercontent.com/67154280/198214501-1e667b6f-82f7-49a6-a3d1-84661a7ba05a.png)
+![image](https://github.com/RavindraWiguna/Jarkom-Modul-2-B12-2022/blob/main/images/no%2012/picture1.png)
 
 ### 13
 > Loid juga meminta Franky untuk dibuatkan konfigurasi virtual host. Virtual host ini bertujuan untuk dapat mengakses file asset **www.eden.wise.yyy.com/public/js** menjadi **www.eden.wise.yyy.com/js**.
@@ -505,7 +503,7 @@ Lakukan testing pada node Garden dan SSS ketika mengakses url invalid seperti `l
 ### Penyelesaian
 ***Pada node Eden***
 
-Lakukan konfigurasi pada file `default-wise-6.conf` dengan menambahkan `Alias "/js" "/var/www/eden.wise.b12.com/public/js"` sebagi berikut.
+Lakukan konfigurasi pada file `default.conf` dengan menambahkan `Alias "/js" "/var/www/eden.wise.b12.com/public/js"` sebagi berikut.
 
 ```
 <VirtualHost *:80>
@@ -531,13 +529,13 @@ Lakukan konfigurasi pada file `default-wise-6.conf` dengan menambahkan `Alias "/
 </VirtualHost>
 ```
 
-Copy file dengan command `cp /root/default-wise-6.conf /etc/apache2/sites-available/eden.wise.b12.com.conf`. 
+Copy file dengan command `cp soal13/default6.conf /etc/apache2/sites-available/eden.wise.b12.com.conf`. 
 
 Restart apache `service apache2 restrat`.
 
 Lakukan testing pada node Garden dan SSS ketika mengakses `lynx http://www.eden.wise.b12.com/js`, maka akan mendapatkan tampilan seperti berikut.
 
-![image](https://user-images.githubusercontent.com/67154280/198215123-6afd18cf-3966-434d-a7c8-e2d6cae54404.png)
+![image](https://github.com/RavindraWiguna/Jarkom-Modul-2-B12-2022/blob/main/images/no%2013/picture1.png)
 
 ### 14
 > Loid meminta agar **www.strix.operation.wise.yyy.com** hanya bisa diakses dengan port 15000 dan port 15500.
@@ -545,7 +543,7 @@ Lakukan testing pada node Garden dan SSS ketika mengakses `lynx http://www.eden.
 ### Penyelesaian
 ***Pada node Eden***
 
-Membuat konfigurasi Web Server di `default-wise-1-15000.conf` dan `default-wise-1-15500.conf` sebaagi berikut.
+Membuat konfigurasi Web Server di `default-15000.conf` dan `default-15500.conf` sebaagi berikut.
 
 - default-wise-1-15000.conf
 
@@ -577,9 +575,9 @@ Membuat konfigurasi Web Server di `default-wise-1-15000.conf` dan `default-wise-
   </VirtualHost>
   ```
 
-Kemudian copy file dengan command `cp /root/default-wise-1-15000.conf /etc/apache2/sites-available/strix.operation.wise.b10.com-15000.conf` dan `cp /root/default-wise-1-15500.conf /etc/apache2/sites-available/strix.operation.wise.b12.com-15000.conf`
+Kemudian copy file dengan command `cp soal14/default-15000.conf /etc/apache2/sites-available/strix.operation.wise.b10.com-15000.conf` dan `cp soal14/default-15500.conf /etc/apache2/sites-available/strix.operation.wise.b12.com-15000.conf`
 
-Tambahkan port yang akan di listen pada `ports-1.conf` sebagi berikut.
+Tambahkan port yang akan di listen pada `ports.conf` sebagi berikut.
 
 ```
 Listen 80
@@ -595,7 +593,7 @@ Listen 15500
 </IfModule>
 ```
 
-Kemudian copi file `cp /root/ports-1.conf /etc/apache2/ports.conf`.
+Kemudian copi file `cp /root/ports.conf /etc/apache2/ports.conf`.
 
 Kemudian aktifkan a2ensite dengan `a2ensite strix.operation.wise.b12.com-15000` dan `a2ensite strix.operation.wise.b12.com-15500`.
 
@@ -607,9 +605,9 @@ Restart apache `service apache2 restart`.
 
 Pada node Garden dan SSS, kita dapat melakukan testing dengan menggunakan lynx pada port 15000 atau 15500 yaitu `lynx http://www.strix.operation.wise.b10.com:15000` atau `lynx http://www.strix.operation.wise.b12.com:15500`.
 
-![image](https://user-images.githubusercontent.com/67154280/198248486-8379c5f3-f550-4c33-ab4d-af1c576844fe.png)
+![image](https://github.com/RavindraWiguna/Jarkom-Modul-2-B12-2022/blob/main/images/no%2014/picture1.png)
 
-![image](https://user-images.githubusercontent.com/67154280/198248537-d1952e86-3310-4870-9255-ae334215c3ea.png)
+![image](https://github.com/RavindraWiguna/Jarkom-Modul-2-B12-2022/blob/main/images/no%2014/picture2.png)
 
 ### 15
 > dengan autentikasi username Twilight dan password opStrix dan file di /var/www/strix.operation.wise.yyy
@@ -617,9 +615,9 @@ Pada node Garden dan SSS, kita dapat melakukan testing dengan menggunakan lynx p
 ### Penyelesaian
 ***Pada node Eden*** 
 
-Tambahkan code baru berikut pada file `default-wise-2-15000.conf` dan `default-wise-2-15500.conf` sebagai berikut.
+Tambahkan code baru berikut pada file `default-15000.conf` dan `default-15500.conf` sebagai berikut.
 
-- default-wise-2-15000.conf
+- default-15000.conf
 
   ```
   <VirtualHost *:15000>
@@ -641,7 +639,7 @@ Tambahkan code baru berikut pada file `default-wise-2-15000.conf` dan `default-w
   </VirtualHost>
   ```
 
-- default-wise-2-15500.conf
+- default-15500.conf
 
   ```
   <VirtualHost *:15500>
@@ -663,7 +661,7 @@ Tambahkan code baru berikut pada file `default-wise-2-15000.conf` dan `default-w
   </VirtualHost>
   ```
 
-Copy file dengan command `cp /root/default-wise-2-15000.conf /etc/apache2/sites-available/strix.operation.wise.b12.com-15000` dan `cp /root/default-wise-2-15500.conf /etc/apache2/sites-available/strix.operation.wise.b12.com-15500`.
+Copy file dengan command `cp soal15/default--15000.conf /etc/apache2/sites-available/strix.operation.wise.b12.com-15000` dan `cp soal15/default-15500.conf /etc/apache2/sites-available/strix.operation.wise.b12.com-15500`.
 
 Kemudian buat autentikasi baru dengan command berikut sehingga memunculkan file .htpasswd pada dengan command `htpasswd -b -c /etc/apache2/.htpasswd Twilight opStrix`.
 
@@ -671,12 +669,8 @@ Restart apache `service apache2 restart`.
 
 Ketika web server `strix.operation.wise.b12.com` diakses, akan diminta authentikasi username dan password.
 
-Input username `Twilight` dan password `opStrix`.
-  
-![image](https://user-images.githubusercontent.com/67154280/198258402-66399df7-2668-4af9-91b5-b2b6ad76f54f.png)
-
 Kemudian akan menampilakn hasil berikut.
 
-![image](https://user-images.githubusercontent.com/67154280/198260798-a6185c38-0f1e-4b9b-8a74-ce1808345a04.png)
+![image](https://github.com/RavindraWiguna/Jarkom-Modul-2-B12-2022/blob/main/images/no%2015/picture1.png)
 
-![image](https://user-images.githubusercontent.com/67154280/198262421-80f026e6-3068-4aa7-b785-e33b6690e441.png)
+![image](https://github.com/RavindraWiguna/Jarkom-Modul-2-B12-2022/blob/main/images/no%2015/picture2.png)
