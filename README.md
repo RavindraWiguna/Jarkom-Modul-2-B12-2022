@@ -159,7 +159,42 @@ Tidak ada
 ## Soal 4
 Buat juga reverse domain untuk domain utama
 ### Cara Pengerjaan
-A
+1. Pada file `/etc/bind/named.conf.local` kita tambahkan konfigurasi untuk reverse domainnya
+```
+zone "wise.b12.com" {
+        type master;
+        file "/etc/bind/wise/wise.b12.com";
+};
+
+zone "3.9.10.in-addr.arpa" {
+    type master;
+    file "/etc/bind/wise/3.9.10.in-addr.arpa";
+};
+```
+2. Tambahkan file baru ke directory `/etc/bind/wise/` dengan nama `3.9.10.in-addr.arpa` yang isinya adalah sebagai berikut:
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     wise.b12.com. root.wise.b12.com. (
+                        2               ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+3.9.10.in-addr.arpa.    IN      NS      wise.b12.com.
+2                       IN      PTR     wise.b12.com.
+```
+3. Restart bind9 dengan command `service bind9 restart`.
+4. Pada client, install dnsutils dengan command:
+```
+apt-get update
+apt-get install dnsutils -y
+```
+5. Cek apakah 2.3.9.10.in-addr-arpa sudah benar menuju wise.b12.com dengan command `host -t PTR 10.9.3.2`
+<img src="https://github.com/RavindraWiguna/Jarkom-Modul-2-B12-2022/blob/main/images/no 4/picture1.png" style="width:86%;height:86%;"><br>
 ### Kendala
 Tidak ada
 
