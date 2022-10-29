@@ -86,7 +86,45 @@ Tidak ada
 ## Soal 2
 Untuk mempermudah mendapatkan informasi mengenai misi dari Handler, bantulah Loid membuat website utama dengan akses wise.yyy.com dengan alias www.wise.yyy.com pada folder wise
 ### Cara Pengerjaan
-A
+1. Pertama tama kita download terlebih dahulu bind9 di WISE dengan command
+```
+apt-get update
+apt-get install bind9 -y
+```
+2. Kemudian kita isikan konfigurasi domain wise.b12.com pada file `/etc/bind/named.conf.local` seperti berikut:
+```
+zone "wise.b12.com" {
+        type master;
+        file "/etc/bind/wise/wise.b12.com";
+};
+```
+3. Lalu, buat folter wise pada directory `/etc/bind/wise` dengan command `mkdir /etc/bind/wise`.
+4. Tambahkan file wise.b12.com pada folder wise tersebut yang isinya:
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     wise.b12.com. root.wise.b12.com. (
+                        4               ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      wise.b12.com.
+@       IN      A       10.9.3.2
+www     IN      CNAME   wise.b12.com.
+```
+5. Lalu kita restart bind9 dengan command `service bind9 restart`
+6. Pada tiap client, kita tambahkan nameserver IP Wise ke dalam `etc/resolv.conf` menjadi seperti ini:
+```
+nameserver 10.9.3.2
+nameserver 192.168.122.1
+```
+7.Lalu kita tes apakah sudah berhasil dengan memping wise.b12.com dan cek apakah www.wise.b12.com ialah alias dari wise.b12.com
+<img src="https://github.com/RavindraWiguna/Jarkom-Modul-2-B12-2022/blob/main/images/no 2/picture1.png" style="width:86%;height:86%;"><br>
+<img src="https://github.com/RavindraWiguna/Jarkom-Modul-2-B12-2022/blob/main/images/no 2/picture2.png" style="width:86%;height:86%;"><br>
 ### Kendala
 Tidak ada
 
