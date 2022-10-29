@@ -1,4 +1,4 @@
-# Jarkom-Modul-1-B12-2022
+# Jarkom-Modul-2-B12-2022
 
 ## Soal-Shift
 ![](.//images/Grafjarkom.png)
