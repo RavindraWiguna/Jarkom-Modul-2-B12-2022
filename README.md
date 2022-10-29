@@ -204,7 +204,7 @@ Agar dapat tetap dihubungi jika server WISE bermasalah, buatlah juga Berlint seb
 zone "wise.a03.com" {
         type master;
         file "/etc/bind/wise/wise.b12.com";
-        allow-transfer { 192.170.3.2; };
+        allow-transfer { 10.9.3.2; };
 };
 
 ```
@@ -219,7 +219,7 @@ apt-get install bind9 -y
 ```
 zone "wise.b12.com" {
     type slave;
-    masters { 192.170.1.2; }; // Masukan IP EniesLobby tanpa tanda petik
+    masters { 10.9.1.2; }; // Masukan IP EniesLobby tanpa tanda petik
     file "/var/lib/bind/wise.b12.com";
 };
 ```
@@ -245,11 +245,11 @@ $TTL    604800
                          604800 )       ; Negative Cache TTL
 ;
 @               IN      NS      wise.b12.com.
-@               IN      A       192.170.1.2
+@               IN      A       10.9.1.2
 www             IN      CNAME   wise.b12.com.
-eden            IN      A       192.170. Ke3.3
+eden            IN      A       10.9.3.3
 www.eden        IN      CNAME   eden.wise.b12.com.
-ns1             IN      A       192.170.3.2
+ns1             IN      A       10.9.3.2
 operation       IN      NS      ns1
 @               IN      AAAA    ::1
 ```
@@ -281,7 +281,7 @@ $TTL    604800
                          604800 )       ; Negative Cache TTL
 ;
 @       IN      NS      operation.wise.b12.com.
-@       IN      A       192.170.3.2
+@       IN      A       10.9.3.2
 www     IN      CNAME   operation.wise.b12.com.
 @       IN      AAAA    ::1
 ```
@@ -306,9 +306,9 @@ $TTL    604800
                          604800 )       ; Negative Cache TTL
 ;
 @       IN      NS      operation.wise.b12.com.
-@       IN      A       192.170.3.2
+@       IN      A       10.9.3.2
 www     IN      CNAME   operation.wise.b12.com.
-strix   IN      A       192.170.3.3
+strix   IN      A       10.9.3.3
 www.strix       IN      CNAME   strix.operation.wise.b12.com.
 @       IN      AAAA    ::1
 ```
