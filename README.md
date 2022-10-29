@@ -122,7 +122,7 @@ www     IN      CNAME   wise.b12.com.
 nameserver 10.9.3.2
 nameserver 192.168.122.1
 ```
-7.Lalu kita tes apakah sudah berhasil dengan memping wise.b12.com dan cek apakah www.wise.b12.com ialah alias dari wise.b12.com
+7.Lalu kita tes apakah sudah berhasil dengan memping wise.b12.com dan cek apakah www.wise.b12.com ialah alias dari wise.b12.com dengan command `host -t CNAME www.wise.b12.com`
 <img src="https://github.com/RavindraWiguna/Jarkom-Modul-2-B12-2022/blob/main/images/no 2/picture1.png" style="width:86%;height:86%;"><br>
 <img src="https://github.com/RavindraWiguna/Jarkom-Modul-2-B12-2022/blob/main/images/no 2/picture2.png" style="width:86%;height:86%;"><br>
 ### Kendala
@@ -131,7 +131,28 @@ Tidak ada
 ## Soal 3
 Setelah itu ia juga ingin membuat subdomain eden.wise.yyy.com dengan alias www.eden.wise.yyy.com yang diatur DNS-nya di WISE dan mengarah ke Eden.
 ### Cara Pengerjaan
-A
+1. Kita tambahkan isi file dari `/etc/bind/wise/wise.b12.com` menjadi seperti berikut
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     wise.b12.com. root.wise.b12.com. (
+                        4               ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@               IN      NS      wise.b12.com.
+@               IN      A       10.9.3.2
+www             IN      CNAME   wise.b12.com. 
+eden            IN      A       10.9.2.3
+www.eden        IN      CNAME   eden.wise.b12.com.
+```
+2. Restart bind9 dengan command `service bind9 restart`
+3. Cek pada client apakah berhasil dengan memping eden.wise.b12.com dan mengecek apakah www.eden.wise.b12.com adalah alias dari eden.wise.b12.com dengan command `host -t CNAME www.eden.wise.b12.com`
+<img src="https://github.com/RavindraWiguna/Jarkom-Modul-2-B12-2022/blob/main/images/no 3/picture1.png" style="width:86%;height:86%;"><br>
 ### Kendala
 Tidak ada
 
