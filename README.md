@@ -200,21 +200,118 @@ Tidak ada
 
 ## Soal 5
 Agar dapat tetap dihubungi jika server WISE bermasalah, buatlah juga Berlint sebagai DNS Slave untuk domain utama
-### Cara Pengerjaan
-A
+```
+zone "wise.a03.com" {
+        type master;
+        file "/etc/bind/wise/wise.b12.com";
+        allow-transfer { 192.170.3.2; };
+};
+
+```
+- Lalu kita restart service bind9 dengan command ``` service bind9 restart ```
+- Setelah itu, kita akan menginstall bind9 juga pada node **Berlint** dengan command 
+
+```
+apt-get update
+apt-get install bind9 -y
+```
+- Pada file **named.conf.local** di **Berlint** kita isi konfigurasi berikut
+```
+zone "wise.b12.com" {
+    type slave;
+    masters { 192.170.1.2; }; // Masukan IP EniesLobby tanpa tanda petik
+    file "/var/lib/bind/wise.b12.com";
+};
+```
+- Restart service bind9 dengan command ``` service bind9 restart ```
+- Setelah semuanya telah dilakukan maka untuk testing kita akan melakukan ping kepada **wise.b12.com** (matikan terlebih dahulu service bind9 pada **WISE** dengan command ``` service bind9 stop ```
 ### Kendala
 Tidak ada
 
 ## Soal 6
 Karena banyak informasi dari Handler, buatlah subdomain yang khusus untuk operation yaitu operation.wise.yyy.com dengan alias www.operation.wise.yyy.com yang didelegasikan dari WISE ke Berlint dengan IP menuju ke Eden dalam folder operation.
 ### Cara Pengerjaan
-A
+- Untuk mendelegasikan domain atau subdomain kita akan menambah konfigurasi pada file **wise.a03.com** di **WISE** seperti berikut
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     wise.b12.com. root.wise.b12.com. (
+                     2022100601         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@               IN      NS      wise.b12.com.
+@               IN      A       192.170.1.2
+www             IN      CNAME   wise.b12.com.
+eden            IN      A       192.170. Ke3.3
+www.eden        IN      CNAME   eden.wise.b12.com.
+ns1             IN      A       192.170.3.2
+operation       IN      NS      ns1
+@               IN      AAAA    ::1
+```
+- Kemudian pada file **named.conf.options** di **WISE** kita akan melakukan uncomment pada **dnssec-validation auto;** dan tambahkan ``` allow-query{any;}; ``` dibawahnya.
+- Setelah itu, di node **Berlint** pada file **named.conf.options** kita juga akan melakukan uncomment pada **dnssec-validation auto;** dan tambahkan ``` allow-query{any;}; ``` dibawahnya.
+- Untuk file **named.conf.local** pada node **Berlint** kita tambahkan konfigurasi seperti berikut
+```
+zone "operation.wise.b12.com" {
+        type master;
+        file "/etc/bind/delegasi/operation.wise.b12.com";
+};
+```
+- Buat direktori dengan nama **/etc/bind/delegasi** dan copy file **db.local** ke dalam direktori **/etc/bind/delegasi** dengan nama **operation.wise.b12.com** dengan command berikut
+```
+mkdir delegasi
+cp /etc/bind/db.local /etc/bind/delegasi/operation.wise.b12.com
+```
+- Isi konfigurasi untuk file **operation.wise.b12.com** seperti dibawah ini
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     operation.wise.a03.com. root.operation.wise.b12.com. (                  
+		     2022102601         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      operation.wise.b12.com.
+@       IN      A       192.170.3.2
+www     IN      CNAME   operation.wise.b12.com.
+@       IN      AAAA    ::1
+```
+- Restart service bind9 dengan menggunakan command ``` service bind9 restart ```
 ### Kendala
 Tidak ada
 
 ## Soal 7
 Untuk informasi yang lebih spesifik mengenai Operation Strix, buatlah subdomain melalui Berlint dengan akses strix.operation.wise.yyy.com dengan alias www.strix.operation.wise.yyy.com yang mengarah ke Eden
 ### Cara Pengerjaan
-A
+- Untuk menambah subdomain, maka kita menggunakan DNS Record tipe A dengan menambahkan nama subdomain pada file **operation.wise.b12.com** pada node **Berlint** sekaligus dengan alias dengan menggunakan DNS Record tipe CNAME seperti dibawah ini
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     operation.wise.b12.com. root.operation.wise.b12.com. (                  
+			   2022102601         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      operation.wise.b12.com.
+@       IN      A       192.170.3.2
+www     IN      CNAME   operation.wise.b12.com.
+strix   IN      A       192.170.3.3
+www.strix       IN      CNAME   strix.operation.wise.b12.com.
+@       IN      AAAA    ::1
+```
+- Restart service bind9 dengan command ``` service bind9 restart ```
 ### Kendala
 Tidak ada
