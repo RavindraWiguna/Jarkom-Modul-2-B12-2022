@@ -69,10 +69,17 @@ iface eth0 inet static
       netmask 255.255.255.0
       gateway 10.9.1.1
 ```
-3. Setelah mengatur konfigurasi network tiap node, kita tambahkan IP DNS dari Ostania sebagai nameserver ke tiap node di dalam /etc/resolv.conf. Kita cek IP DNS yang berada di Ostania dengan memasukkan command `cat /etc/resolv.conf`. Terlihat isinya adalah `nameserver 192.168.122.1`, menandakan IP DNS-nya adalah `192.168.122.1`.
-![](.//images/ipdns.png)
-Lalu kita tambahkan juga `nameserver 192.168.122.1` ke dalam file `/etc/resolv.conf` di tiap node. Agar hal ini dilakukan otomatis setiap membuka project GNS3, kita masukkan command `echo nameserver 192.168.122.1 > /etc/resolv.conf` ke dalam file `.bashrc` di tiap nodenya (kecuali Ostania). Setelah itu kita masukkan command `iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE -s 10.9.0.0/16` pada Ostania.
+3. Setelah mengatur konfigurasi network tiap node, kita tambahkan IP DNS dari Ostania sebagai nameserver ke tiap node di dalam /etc/resolv.conf. Kita cek IP DNS yang berada di Ostania dengan memasukkan command `cat /etc/resolv.conf`. Terlihat isinya adalah `nameserver 192.168.122.1`, menandakan IP DNS-nya adalah `192.168.122.1`.<br>
+![](.//images/ipdns.png)<br>
+Lalu kita tambahkan juga `nameserver 192.168.122.1` ke dalam file `/etc/resolv.conf` di tiap node. Agar hal ini dilakukan otomatis setiap membuka project GNS3, kita masukkan command `echo nameserver 192.168.122.1 > /etc/resolv.conf` ke dalam file `.bashrc` di tiap nodenya (kecuali Ostania). Setelah itu kita masukkan command `iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE -s 10.9.0.0/16` pada file `.bashrc` di Ostania.
 4. Cek koneksi tiap nodenya dengan memping google.com.
+<img src="https://github.com/RavindraWiguna/Jarkom-Modul-2-B12-2022/blob/main/images/no 1/picture1.png" style="width:86%;height:86%;"><br>
+<img src="https://github.com/RavindraWiguna/Jarkom-Modul-2-B12-2022/blob/main/images/no 1/picture2.png" style="width:86%;height:86%;"><br>
+<img src="https://github.com/RavindraWiguna/Jarkom-Modul-2-B12-2022/blob/main/images/no 1/picture3.png" style="width:86%;height:86%;"><br>
+<img src="https://github.com/RavindraWiguna/Jarkom-Modul-2-B12-2022/blob/main/images/no 1/picture4.png" style="width:86%;height:86%;"><br>
+<img src="https://github.com/RavindraWiguna/Jarkom-Modul-2-B12-2022/blob/main/images/no 1/picture5.png" style="width:86%;height:86%;"><br>
+<img src="https://github.com/RavindraWiguna/Jarkom-Modul-2-B12-2022/blob/main/images/no 1/picture6.png" style="width:86%;height:86%;"><br>
+
 ### Kendala
 Tidak ada
 
